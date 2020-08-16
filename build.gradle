@@ -1,0 +1,48 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+version = '3.0.0'
+project.group='org.mos'
+
+apply plugin: 'zippo'
+
+buildscript {
+
+    dependencies {
+        classpath "onight.osgi:zpp-gradle_1.8:3.4.0"
+        classpath "org.mos:org.mos.coreapi:3.0.0"
+        // classpath "org.mos.core:org.mos.core.model:0.0.1"
+    }
+}
+
+ext {
+    slf4jVersion = '1.7.7'
+    leveldbVersion = '0.7'
+    scastleVersion = '1.53.0.0'
+    springVersion = '4.2.0.RELEASE'
+    hibernateVersion = '4.3.7.Final'
+    junitVersion = '4.11'
+}
+
+dependencies {
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+    compile ("com.sleepycat:je:5.0.73")
+    compile ("org.apache.commons:commons-collections4:4.0")
+
+    compile 'com.fasterxml.jackson:jackson-parent:2.5'
+    compile "com.fasterxml.jackson.core:jackson-databind:2.5.1"
+    includeInJar "org.bouncycastle:bcprov-jdk15on:1.58"
+    includeInJar "com.madgag.spongycastle:core:1.58.0.0"
+    includeInJar "com.madgag.spongycastle:prov:1.58.0.0"
+    compile ("org.mos.core:org.mos.core.crypto:3.0.0")
+    compile ("org.mos.core:org.mos.core.cryptoapi:3.0.0")
+    compile ("org.mos:org.mos.model:3.0.0")
+    compile ("org.mos:org.mos.tools:3.0.0")
+    compile ("org.mos:org.mos.coreapi:3.0.0")
+}
+
+jar {
+    manifest{
+        attributes( 'Import-Ignore':'com.cedarsoftware,org.ethereum,org.bouncycastle,com.google,org.apache.commons,com.fasterxml.jackson,net.sf.ehcache,org.spongycastle,org.terracotta,com.terracotta')
+    }
+}
